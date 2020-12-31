@@ -1,14 +1,13 @@
 package com.christianhoerauf.fizzbuzzserver;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
 
 @RestController
 public class FizzBuzzController {
-    @RequestMapping("/fizzbuzz")
-    public String index() {
-        FizzBuzzResponse response = new FizzBuzzResponse(0);
+    @GetMapping("/fizzbuzz")
+    public String index(@RequestParam int maxNum) {
+        FizzBuzzResponse response = new FizzBuzzResponse(maxNum);
         Gson gson = new Gson();
         return gson.toJson(response);
     }

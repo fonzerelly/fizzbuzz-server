@@ -20,9 +20,16 @@ public class FizzBizzControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void shouldProvideFeedbackAboutRequestedSize() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?num=0").accept(MediaType.APPLICATION_JSON))
+    public void shouldProvideFeedbackAboutRequestedSizeZero() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?maxNum=0").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.maxNum", equalTo(0)));
+    }
+
+    @Test
+    public void shouldProvideFeedbackAboutRequestedSizeOne() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?maxNum=1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.maxNum", equalTo(1)));
     }
 }
