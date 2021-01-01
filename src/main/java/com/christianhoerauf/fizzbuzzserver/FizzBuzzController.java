@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 public class FizzBuzzController {
     @GetMapping("/fizzbuzz")
     public String index(@RequestParam int maxNum) {
-        FizzBuzzResponse response = new FizzBuzzResponse(maxNum);
+        FizzBuzzResponse response = new FizzBuzzResponse(maxNum, new String[]{"1", "2", "fizz"});
         Gson gson = new Gson();
         return gson.toJson(response);
     }
