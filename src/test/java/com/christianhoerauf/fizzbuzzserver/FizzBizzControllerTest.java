@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,7 +48,7 @@ public class FizzBizzControllerTest {
     }
 
     @Test
-    public void shouldProvideArrayOfResultingNumbers() throws Exception {
+    public void shouldProvideArrayOfResultingNumbersUpToThree() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?maxNum=3").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numbers", hasItem("1")))
@@ -56,9 +57,19 @@ public class FizzBizzControllerTest {
     }
 
     @Test
+    public void shouldProvideArrayOfResultingNumbersUpToFive() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?maxNum=5").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.numbers", hasItem("4")))
+                .andExpect(jsonPath("$.numbers", hasItem("buzz")));
+
+    }
+
+    @Test
     public void shouldAccessFizzBuzzConverterToFillNumbers() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/fizzbuzz?maxNum=3").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        Mockito.verify(converter).convert(3);
+        Mockito.verify(converter, times(3)).convert(anyInt());
     }
+
 }
