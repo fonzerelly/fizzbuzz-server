@@ -1,5 +1,8 @@
 package com.christianhoerauf.fizzbuzzserver;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FizzBuzzConverter {
     private final FizzBuzzNumberConverter fizzer;
     private final FizzBuzzNumberConverter buzzer;
